@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
+  "short_name": "Cake Shop",
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://www.thespruceeats.com/thmb/s4VVcLgOu0eX5lECrBMSjNZ-v2E=/1000x1000/smart/filters:no_upscale()/gluten-free-new-york-cheesecake-1450985-hero-01-dc54f9daf38044238b495c7cefc191fa.jpg",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
