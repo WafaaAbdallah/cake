@@ -1,80 +1,46 @@
-import Home from "./Components/Home";
-import Productslist from "./Components/Productslist";
-import Details from "./Components/Details";
-import _products from "./Products";
-import { Route, Switch } from "react-router";
-
+//components
+import Routes from "./Components/routes";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
-import { theme, GlobalStyle, ThemeButton } from "./Components/Style";
-import Navbar from "./Components/NavBar"
+import { theme, GlobalStayle, ThemeButton } from "./Components/Style";
+
+
+
+import NavBar from "./Components/NavBar";
+
 function App() {
+  const products = useSelector((state) => state.products.products);
+  const loadingProducts = useSelector((state) => state.products.loading);
+  const loadingShops = useSelector((state) => state.products.loading);
   const [currentTheme, setcurrentTheme] = useState(theme.light);
   const [iconName, seticonName] = useState("Dark theme");
-  const [product, setProduct] = useState(null);
-  const [products, setProducts] = useState(_products);
-  const deleteProduct = (productID) => {
-    const filtersProduct = products.filter(
-      (product) => productID !== product.id
-    );
-    setProducts(filtersProduct);
-  };
-  const setView = () => {
-    if (product) {
-      return <Details product={product} setProduct={setProduct} />;
-    } else {
-      return (
-        <Productslist
-          setProduct={setProduct}
-          products={products}
-          deleteProduct={deleteProduct}
-        />
-      );
-    }
-  };
-  //
   const changeTheme = () => {
     if (currentTheme === theme.light) {
       setcurrentTheme(theme.dark);
-    } else {
       seticonName("Light theme");
     }
     if (currentTheme === theme.dark) {
       setcurrentTheme(theme.light);
-    } else {
       seticonName("Dark theme");
     }
   };
-
+  
   return (
     <div>
       <ThemeProvider theme={currentTheme}>
-        <GlobalStyle />
+        <GlobalStayle />
         <ThemeButton onClick={changeTheme}> {iconName} </ThemeButton>
-        <Navbar 
-        iconName ={iconName}/>
-        <Switch>
-          <Route path="/products">
-            <Productslist
-              setProduct={setProduct}
-              products={products}
-              deleteProduct={deleteProduct}
-            />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path= "/products/:productSlug">
-          <Details products={products} deleteProduct={deleteProduct}/>
-          </Route>
-        </Switch>
-        {/* <Home /> */}
-        {/* {setView()}; */}
-        {/* <Productslist setProduct={setProduct} />
-        <Details product={product} /> */}
+        <NavBar iconName={iconName} />
+        {loadingProducts || loadingShops ? (
+          <h3>loading...</h3>
+        ) : (
+          <Routes products={products} />
+        )}
+
+       
       </ThemeProvider>
     </div>
   );
 }
-
 export default App;

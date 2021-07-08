@@ -1,4 +1,4 @@
-import {DeleteButtonStyled} from "../Style"
+
 import { FaBeer } from "react-icons/fa";
 
 
@@ -8,9 +8,9 @@ const DeleteButton = (props)=>{
         props.deleteProduct(productID);
     }
     return (
-        <DeleteButtonStyled onClick={()=>handleDelete(props.productID)}>
+        <button onClick={()=>handleDelete(props.productID)}>
            < FaBeer/>
-        </DeleteButtonStyled>
+        </button>
     )
     }
 
